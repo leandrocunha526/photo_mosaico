@@ -22,7 +22,6 @@ class PhotoMosaic extends StatelessWidget {
         itemCount: images.length,
         itemBuilder: (context, index) {
           final file = images[index];
-          final image = Image.file(file);
           return FutureBuilder<Size>(
             future: _getImageSize(file),
             builder: (context, snapshot) {
@@ -31,14 +30,9 @@ class PhotoMosaic extends StatelessWidget {
                 final size = snapshot.data!;
                 height = size.width > size.height ? 80 : 160;
               }
-              return Container(
+              return SizedBox(
                 height: height,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade400),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: image,
+                child: Image.file(file, fit: BoxFit.cover),
               );
             },
           );
