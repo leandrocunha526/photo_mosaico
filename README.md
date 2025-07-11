@@ -1,5 +1,7 @@
 # 📸 Mosaico Fotos PDF
 
+Aplicativo que permite ao usuário tirar fotos com a câmera do dispositivo, montar dinamicamente um mosaico variando o tamanho de acordo com orientação (vertical ou horizontal) e, ao final, salvar esse mosaico como um arquivo PDF local e abri-lo diretamente no dispositivo.
+
 Um aplicativo Flutter para Android que permite ao usuário:
 
 - Tirar fotos com a câmera do dispositivo
@@ -30,6 +32,7 @@ Um aplicativo Flutter para Android que permite ao usuário:
 - `pdf`: para gerar o documento PDF
 - `path_provider`: para obter diretórios locais
 - `open_file`: para abrir o PDF gerado
+- `flutter_staggered_grid_view`: para exibir o mosaico em grade adaptável
 
 ---
 
