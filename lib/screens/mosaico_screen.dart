@@ -34,9 +34,7 @@ class _MosaicoScreenState extends State<MosaicoScreen> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (_) => SavePdfScreen(imageBytes: imageBytes),
-      ),
+      MaterialPageRoute(builder: (_) => SavePdfScreen(imageBytes: imageBytes)),
     );
   }
 
@@ -47,9 +45,9 @@ class _MosaicoScreenState extends State<MosaicoScreen> {
       body: Column(
         children: [
           Expanded(
-            child: Screenshot(
-              controller: screenshotController,
-              child: PhotoMosaic(images: _images),
+            child: PhotoMosaic(
+              images: _images,
+              screenshotController: screenshotController,
             ),
           ),
           Container(
@@ -69,7 +67,7 @@ class _MosaicoScreenState extends State<MosaicoScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
