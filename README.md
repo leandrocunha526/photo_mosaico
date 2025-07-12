@@ -10,10 +10,18 @@ Aplicativo que permite ao usuário tirar fotos com a câmera do dispositivo, mon
 ✅ Montar um mosaico em grade com as fotos capturadas usando um componente desenvolvido por mim  
 ✅ Tirar um screenshot do mosaico montado  
 ✅ Gerar um arquivo PDF com o mosaico  
-✅ Salvar no armazenamento interno do app  
-✅ Abrir o PDF após gerado  
+✅ Salvar o PDF no armazenamento interno do app  
 ✅ Feedback visual com SnackBars em todas as operações  
-✅ Validação para o botão `Salvar PDF` que irá aparecer apenas se existir fotos atendendo o que foi solicitado
+✅ Validação para o botão `Salvar PDF` que irá aparecer apenas se existir fotos atendendo o que foi solicitado  
+✅ Uso de gestos de zoom e rotação com dois dedos para visualizar as fotos no mosaico com possibilidade de expandir a foto do mosaico para visualização detalhada e permitir zoom e rotação  
+✅ Exibição do mosaico em grade adaptável, que muda o número de colunas dependendo da orientação do dispositivo (vertical ou horizontal)  
+✅ Uso de pacotes do Flutter para facilitar a implementação das funcionalidades  
+✅ Código modularizado e organizado, seguindo boas práticas de desenvolvimento  
+✅ Interface amigável e intuitiva, com feedback visual para ações do usuário e além de uso de validação para garantir uma boa experiência  
+✅ Possibilidade de abrir o PDF gerado diretamente no dispositivo após a criação  
+✅ Possibilidade de definir o tamanho do mosaico de acordo com a quantidade de fotos tiradas, mantendo uma boa proporção e estética  
+✅ Possilidade de remoção de fotos do mosaico, permitindo ao usuário gerenciar as imagens capturadas e isso deslizando a foto para a esquerda ou direita  
+✅ Visualização única da foto do mosaico, permitindo ao usuário ver a imagem em tamanho real com opções de zoom e rotação (usando o pacote `photo_view`)  
 
 ---
 
@@ -26,6 +34,7 @@ Aplicativo que permite ao usuário tirar fotos com a câmera do dispositivo, mon
 - `path_provider`: para obter diretórios locais
 - `open_file`: para abrir o PDF gerado
 - `flutter_staggered_grid_view`: para exibir o mosaico em grade adaptável
+- `photo_view`: para permitir zoom e rotação nas fotos do mosaico
 
 ---
 
