@@ -25,13 +25,13 @@ class _PhotoMosaicState extends State<PhotoMosaic> {
   @override
   Widget build(BuildContext context) {
     if (widget.images.isEmpty) {
-      return const Center(child: Text("Nenhuma foto adicionada"));
+      return const Center(child: Text("Tire fotos para adicionar ao mosaico"));
     }
 
     final screenWidth = MediaQuery.of(context).size.width;
-    final spacing = 6.0;
+    final spacing = 0.0;
     final crossAxisCount = manualCrossAxisCount;
-    final totalSpacing = (crossAxisCount - 1) * spacing + 16;
+    final totalSpacing = (crossAxisCount - 1) * spacing;
     final itemWidth = (screenWidth - totalSpacing) / crossAxisCount;
 
     return Column(
@@ -39,75 +39,70 @@ class _PhotoMosaicState extends State<PhotoMosaic> {
         Expanded(
           child: Screenshot(
             controller: widget.screenshotController,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: MasonryGridView.count(
-                crossAxisCount: crossAxisCount,
-                mainAxisSpacing: spacing,
-                crossAxisSpacing: spacing,
-                itemCount: widget.images.length,
-                itemBuilder: (context, index) {
-                  final file = widget.images[index];
-                  return FutureBuilder<Size>(
-                    future: _getImageSize(file),
-                    builder: (context, snapshot) {
-                      double height = itemWidth;
-                      if (snapshot.hasData) {
-                        final size = snapshot.data!;
-                        height = itemWidth * (size.height / size.width);
-                      }
-                      return Dismissible(
-                        key: ValueKey(file.path),
-                        direction: DismissDirection.horizontal,
-                        background: Container(
-                          color: Colors.redAccent,
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: const Icon(Icons.delete, color: Colors.white),
-                        ),
-                        secondaryBackground: Container(
-                          color: Colors.redAccent,
-                          alignment: Alignment.centerRight,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: const Icon(Icons.delete, color: Colors.white),
-                        ),
-                        onDismissed: (direction) {
-                          final removedFile = widget.images[index];
-                          setState(() {
-                            widget.images.removeAt(index);
-                          });
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text("Foto removida"),
-                              action: SnackBarAction(
-                                label: "Desfazer",
-                                onPressed: () {
-                                  setState(() {
-                                    widget.images.insert(index, removedFile);
-                                  });
-                                },
-                              ),
+            child: MasonryGridView.count(
+              crossAxisCount: crossAxisCount,
+              mainAxisSpacing: spacing,
+              crossAxisSpacing: spacing,
+              itemCount: widget.images.length,
+              itemBuilder: (context, index) {
+                final file = widget.images[index];
+                return FutureBuilder<Size>(
+                  future: _getImageSize(file),
+                  builder: (context, snapshot) {
+                    double height = itemWidth;
+                    if (snapshot.hasData) {
+                      final size = snapshot.data!;
+                      height = itemWidth * (size.height / size.width);
+                    }
+                    return Dismissible(
+                      key: ValueKey(file.path),
+                      direction: DismissDirection.horizontal,
+                      background: Container(
+                        color: Colors.redAccent,
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.redAccent,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      onDismissed: (direction) {
+                        final removedFile = widget.images[index];
+                        setState(() {
+                          widget.images.removeAt(index);
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text("Foto removida"),
+                            action: SnackBarAction(
+                              label: "Desfazer",
+                              onPressed: () {
+                                setState(() {
+                                  widget.images.insert(index, removedFile);
+                                });
+                              },
                             ),
-                          );
-                        },
-                        child: GestureDetector(
-                          onTap: () => _openPhotoView(context, file),
-                          child: SizedBox(
-                            width: itemWidth,
-                            height: height,
-                            child: Image.file(file, fit: BoxFit.cover),
                           ),
+                        );
+                      },
+                      child: GestureDetector(
+                        onTap: () => _openPhotoView(context, file),
+                        child: SizedBox(
+                          width: itemWidth,
+                          height: height,
+                          child: Image.file(file, fit: BoxFit.cover),
                         ),
-                      );
-                    },
-                  );
-                },
-              ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ),
-
-        // Slider + reset fora do Screenshot
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
